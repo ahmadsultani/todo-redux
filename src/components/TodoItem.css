@@ -6,14 +6,16 @@ li {
   width: calc(50vw + 20vh);
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
   margin: 10px 0;
 }
 
 .delete {
+  flex: 0.1;
   background-color: maroon;
   border-radius: 8px;
+  margin-right: 1vw;
 }
 
 .delete:hover {
