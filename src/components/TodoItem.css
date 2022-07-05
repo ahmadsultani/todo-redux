@@ -1,0 +1,39 @@
+li {
+  background-color: #fff;
+  display: flex;
+  flex: 0.1;
+  height: fit-content;
+  width: calc(50vw + 20vh);
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.delete {
+  background-color: maroon;
+  border-radius: 8px;
+}
+
+.delete:hover {
+  color: Maroon;
+  box-shadow: 0 0 0 1px maroon;
+}
+
+.todo-toggle {
+  flex: 0.1;
+  margin: 0;
+  cursor: pointer;
+}
+
+.todo-completed {
+  opacity: 0.3;
+}
+
+.todo-item {
+  flex: 0.8;
+  font-size: 1.2rem;
+  justify-content: left;
+  margin: 0 10px;
+}
