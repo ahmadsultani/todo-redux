@@ -2,7 +2,7 @@ form {
   position: relative;
   top: 10vh;
   display: flex;
-  width: 45vw;
+  width: calc(40vw + 10vh);
   align-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -24,7 +24,7 @@ input:focus {
 
 .btn {
   margin: 0 0 0 12px;
-  flex: 0.1;
+  flex: 0.12;
   height: 7vh;
   border: none;
   outline: none;
@@ -38,6 +38,6 @@ input:focus {
 .btn:hover {
   background-color: rgb(255, 255, 255);
   color: rgb(88, 88, 88);
-  box-shadow: 0 0 0 1px rgb(88, 88, 88);
+  box-shadow: 0 0 0 1px #585858;
   transition: 0.3s;
 }

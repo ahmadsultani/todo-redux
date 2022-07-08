@@ -13,14 +13,15 @@ li {
 
 .delete {
   flex: 0.1;
-  background-color: maroon;
+  background-color: rgb(180, 0, 0);
   border-radius: 8px;
   margin-right: 1vw;
 }
 
 .delete:hover {
   color: Maroon;
-  box-shadow: 0 0 0 1px maroon;
+  border: 1px solid maroon;
+  /* box-shadow: 0 0 0 1px maroon; */
 }
 
 .todo-toggle {
