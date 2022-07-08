@@ -17,8 +17,7 @@ const todoSlice = createSlice({
       todo.completed = !todo.completed
     },
     removeTodo: (state : any, action : any) => {
-      const index = state.findIndex((todo : any) => todo.id === action.payload)
-      state.splice(index, 1)
+      return state.filter((todo : any) => todo.id !== action.payload)
     }
   }
 });
