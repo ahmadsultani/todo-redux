@@ -20,8 +20,7 @@ li {
 
 .delete:hover {
   color: Maroon;
-  border: 1px solid maroon;
-  /* box-shadow: 0 0 0 1px maroon; */
+  box-shadow: 0 0 0 1px maroon;
 }
 
 .todo-toggle {

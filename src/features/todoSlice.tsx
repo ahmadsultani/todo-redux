@@ -18,7 +18,6 @@ const todoSlice = createSlice({
     },
     removeTodo: (state : any, action : any) => {
       const index = state.findIndex((todo : any) => todo.id === action.payload)
-      console.log(state[index])
       state.splice(index, 1)
     }
   }
