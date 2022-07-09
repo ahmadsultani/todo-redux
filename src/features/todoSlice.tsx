@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState : any = [];
+
 const todoSlice = createSlice({
   name: 'todos',
-  initialState: [],
+  initialState,
   reducers: {
     addTodo: (state : any, action : any) => {
       const newTodo = { 
@@ -10,15 +12,14 @@ const todoSlice = createSlice({
         title: action.payload,
         completed: false
       }
-      state.push(newTodo)
+      state.push(newTodo);
     },
     toggleTodo: (state : any, action : any) => {
-      const todo = state.find((todo : any) => todo.id === action.payload)
+      const todo = state.find((todo : any) => todo.id === action.payload);
       todo.completed = !todo.completed
     },
     removeTodo: (state : any, action : any) => {
-      const index = state.findIndex((todo : any) => todo.id === action.payload)
-      state.splice(index, 1)
+      return state.filter((todo : any) => todo.id !== action.payload);
     }
   }
 });
