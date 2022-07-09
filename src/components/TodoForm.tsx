@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import './TodoForm.css';
-
 import { addTodo } from '../features/todoSlice';
+
+import { Button, Input } from '@chakra-ui/react';
+
+import './TodoForm.css';
 
 export default function TodoForm() {
   const [item, setItem] = useState('');
@@ -23,8 +25,23 @@ export default function TodoForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" placeholder='Add an item' value={item} onChange={handleChange} />
-      <button className="btn" type='submit'>Add</button>
-    </form>
+      <Input 
+        id='text' 
+        minH='40px'
+        w='calc(25vw + 25vh)'
+        h='fit-content'
+        placeholder='Add Todo' 
+        focusBorderColor='purple.500'
+        value={item}
+        onChange={handleChange}
+      />
+      <Button
+        ml={3}
+        colorScheme='purple'
+        variant='solid'
+        size='md'
+        onClick={handleSubmit}
+      >Add</Button>
+  </form>
   );
 }

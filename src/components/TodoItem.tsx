@@ -2,7 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { toggleTodo, removeTodo } from "../features/todoSlice";
 
-import './TodoItem.css';
+import { HStack, IconButton, Flex, Text } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
+import { FaEdit, FaCheck } from 'react-icons/fa';
 
 export default function TodoItem({index} : any){
   const dispatch = useDispatch();
@@ -17,11 +19,55 @@ export default function TodoItem({index} : any){
     dispatch(removeTodo(todo.id));
   }
 
+  function handleEdit() { 
+    console.log('edit');
+
+  }
+
   return (
-    <li className={todo.completed? "todo-completed" : ""} key={todo.id}>
-      <input className="todo-toggle" type="checkbox" checked={todo.completed} onChange={handleCompleted} />
-      <div className="todo-item">{todo.title}</div>
-      <button className="btn delete" onClick={handleRemove}>Delete</button>
-    </li>
+    <Flex 
+      opacity={todo.completed? '0.4' : 1}
+      w='calc(35vw + 35vh)'
+      h='fit-content'
+      direction='row'
+      align='center'
+      justify='space-between'
+      p={2}
+      borderWidth='1px'
+      borderRadius='12px'
+      borderColor='#ccc'
+      m={3}
+    >
+      <IconButton
+        aria-label='todo comleted'
+        colorScheme='purple'
+        variant={todo.completed? "solid" : "outline"}
+        icon={todo.completed && <FaCheck />}
+        isRound={true}
+        onClick={handleCompleted}
+      />
+      <Text 
+        flex='0.9'
+        overflow='hidden'
+      >{todo.title}</Text>
+      <HStack>
+        <IconButton
+          size='lg'
+          colorScheme='purple'
+          aria-label='Edit Todo'
+          icon={<FaEdit />}
+          isRound={true}
+          onClick={handleEdit}
+        />
+        <IconButton 
+          colorScheme='purple'
+          size='lg'
+          aria-label='Delete Todo'
+          icon={<DeleteIcon />}
+          isRound={true}
+          onClick={handleRemove} 
+        />
+      </HStack>
+    </Flex>
   );
 }
