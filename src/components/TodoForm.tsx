@@ -32,6 +32,8 @@ export default function TodoForm() {
         h='fit-content'
         placeholder='Add Todo' 
         focusBorderColor='purple.500'
+        border='1px'
+        borderColor='#bbb'
         value={item}
         onChange={handleChange}
       />

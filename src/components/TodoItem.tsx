@@ -1,15 +1,19 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import TodoEdit from './TodoEdit';
 
 import { toggleTodo, removeTodo } from "../features/todoSlice";
 
-import { HStack, IconButton, Flex, Text } from '@chakra-ui/react';
+import { HStack, IconButton, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { FaEdit, FaCheck } from 'react-icons/fa';
 
 export default function TodoItem({index} : any){
-  const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const todo = useSelector((state : any) => state.todos[index])
+  const dispatch = useDispatch();
 
   function handleCompleted() {
     dispatch(toggleTodo(todo.id));
@@ -19,55 +23,57 @@ export default function TodoItem({index} : any){
     dispatch(removeTodo(todo.id));
   }
 
-  function handleEdit() { 
-    console.log('edit');
-
+  function handleEdit() {
+    onOpen();
   }
 
   return (
-    <Flex 
+    <>
+      <Flex 
       opacity={todo.completed? '0.4' : 1}
-      w='calc(35vw + 35vh)'
-      h='fit-content'
-      direction='row'
-      align='center'
-      justify='space-between'
-      p={2}
-      borderWidth='1px'
-      borderRadius='12px'
-      borderColor='#ccc'
-      m={3}
-    >
-      <IconButton
-        aria-label='todo comleted'
-        colorScheme='purple'
-        variant={todo.completed? "solid" : "outline"}
-        icon={todo.completed && <FaCheck />}
-        isRound={true}
-        onClick={handleCompleted}
-      />
-      <Text 
-        flex='0.9'
-        overflow='hidden'
-      >{todo.title}</Text>
-      <HStack>
+        w='calc(35vw + 35vh)'
+        h='fit-content'
+        direction='row'
+        align='center'
+        justify='space-between'
+        p={2}
+        borderWidth='1px'
+        borderRadius='12px'
+        borderColor='#ccc'
+        m={3}
+      >
         <IconButton
-          size='lg'
+          aria-label='todo completed'
           colorScheme='purple'
-          aria-label='Edit Todo'
-          icon={<FaEdit />}
+          variant={todo.completed? "solid" : "outline"}
+          icon={todo.completed && <FaCheck />}
           isRound={true}
-          onClick={handleEdit}
+          onClick={handleCompleted}
         />
-        <IconButton 
-          colorScheme='purple'
-          size='lg'
-          aria-label='Delete Todo'
-          icon={<DeleteIcon />}
-          isRound={true}
-          onClick={handleRemove} 
-        />
-      </HStack>
-    </Flex>
+        <Text 
+          flex='0.9'
+          overflow='hidden'
+        >{todo.title}</Text>
+        <HStack>
+          <IconButton
+            size='lg'
+            colorScheme='purple'
+            aria-label='Edit Todo'
+            icon={<FaEdit />}
+            isRound={true}
+            onClick={handleEdit}
+          />
+          <IconButton 
+            colorScheme='purple'
+            size='lg'
+            aria-label='Delete Todo'
+            icon={<DeleteIcon />}
+            isRound={true}
+            onClick={handleRemove} 
+          />
+        </HStack>
+      </Flex>
+      <TodoEdit isOpen={isOpen} onClose={onClose} todo={todo} />
+    </>
   );
 }
