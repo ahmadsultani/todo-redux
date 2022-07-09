@@ -5,12 +5,13 @@ import TodoItem from './TodoItem';
 import './TodoList.css';
 
 function TodoList() {
-  const todos = useSelector((state : any) => state.todos)
+  const todos = useSelector((state : any) => state.todos);
+  let index : number = 0;
   
   return (
     <ul className="TodoList">
       {todos.map((todo : any) => (
-        <TodoItem id={todo.id} title={todo.title} completed={todo.completed}/>
+        <TodoItem key={todo.id} index={index++}/>
       ))}
     </ul>
   )
