@@ -43,6 +43,8 @@ export default function TodoForm() {
         variant='solid'
         size='md'
         onClick={handleSubmit}
+        fontSize={{ base: 'sm', md: 'md' }}
+        fontWeight='medium'
       >Add</Button>
   </form>
   );

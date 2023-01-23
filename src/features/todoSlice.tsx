@@ -1,33 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState : any = [];
+export interface TodoFields {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+const initialState: TodoFields[] = [];
 
 const todoSlice = createSlice({
-  name: 'todos',
+  name: "todos",
   initialState,
   reducers: {
-    addTodo: (state : any, action : any) => {
-      const newTodo = { 
+    addTodo: (state, action: PayloadAction<string>) => {
+      const newTodo = {
         id: Date.now(),
         title: action.payload,
-        completed: false
-      }
+        completed: false,
+      };
       state.push(newTodo);
     },
-    toggleTodo: (state : any, action : any) => {
-      const todo = state.find((todo : any) => todo.id === action.payload);
-      todo.completed = !todo.completed
+    toggleTodo: (state, action: PayloadAction<number>) => {
+      return state.map((todo: TodoFields) => {
+        return {
+          ...todo,
+          completed: todo.id === action.payload ? !todo.completed : todo.completed,
+        }
+      });
     },
-    removeTodo: (state : any, action : any) => {
-      return state.filter((todo : any) => todo.id !== action.payload);
+    removeTodo: (state, action: PayloadAction<number>) => {
+      return state.filter(
+        (todo: TodoFields) => todo.id !== action.payload
+      );
     },
-    editTodo: (state : any, action : any) => {
-      const todo = state.find((todo : any) => todo.id === action.payload.id);
-      todo.title = action.payload.title;
-    }
-  }
+    editTodo: (state, action: PayloadAction<TodoFields>) => {
+      return state.map((todo: TodoFields) => {
+        return {
+          ...todo,
+          title: todo.id === action.payload.id ? action.payload.title : todo.title,
+        }
+      });
+    },
+  },
 });
 
 export const { addTodo, toggleTodo, removeTodo, editTodo } = todoSlice.actions;
-
 export default todoSlice.reducer;

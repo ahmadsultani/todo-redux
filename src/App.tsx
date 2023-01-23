@@ -18,11 +18,12 @@ function App() {
       borderRadius={8}
       boxShadow='0 0 8px rgba(0, 0, 0, .125)'
       background='whiteAlpha.800'
+      gap={2}
     >
       <Heading
         size="2xl"
         textAlign="center"
-        fontWeight="extrabold"
+        fontWeight="bold"
         bgGradient='linear(to-l, #7928CA, #FF0080)'
         bgClip='text'
       > Todo List

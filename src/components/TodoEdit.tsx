@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { editTodo } from '../features/todoSlice';
+import { editTodo, TodoFields } from '../features/todoSlice';
 
 import { 
   Box,
@@ -16,25 +16,32 @@ import {
   ModalOverlay, 
 } from "@chakra-ui/react";
 
-export default function TodoEdit({isOpen, onClose, todo}: any) {
-  const [item, setItem] = useState('');
+interface TodoEditProps {
+  isOpen: boolean;
+  onClose: () => void;
+  todo: TodoFields;
+}
 
+export default function TodoEdit(props: TodoEditProps) {
+  const { isOpen, onClose, todo } = props;
+  const [item, setItem] = useState(todo.title);
   const dispatch = useDispatch();
 
-  function handleChange(e : any) {
-    setItem(e.target.value);
+  function handleChange(e : Event) {
+    const target = e.target as HTMLInputElement;
+    setItem(target.value);
   }
 
-  function handleSubmit(e : any) {
+  function handleSubmit(e : Event) {
     e.preventDefault()
-    if (item.trim() !== '') {
-      dispatch(editTodo({id:todo.id, title:item}))
+    if (item !== "") {
+      dispatch(editTodo({id: todo.id, title: item, completed: todo.completed}))
       handleClose()
     } 
   }
 
   function handleClose() {
-    setItem('');
+    setItem(todo.title);
     onClose();
   }
 
@@ -45,11 +52,11 @@ export default function TodoEdit({isOpen, onClose, todo}: any) {
         <ModalHeader>Edit Todo</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box as='form' onSubmit={handleSubmit} w='100%'>            
+          <Box as='form' onSubmit={() => handleSubmit} w='100%'>            
             <Input 
               value={item}
-              onChange={handleChange}
-              placeholder='Enter your new todo'
+              onChange={() => handleChange}
+              placeholder='Edit your todo'
               focusBorderColor='purple.400'
               size='md'
             />
@@ -57,7 +64,7 @@ export default function TodoEdit({isOpen, onClose, todo}: any) {
         </ModalBody>
         <ModalFooter>
           <Button 
-            onClick={handleSubmit}
+            onClick={() => handleSubmit}
             colorScheme='purple'
             variant='outline'
             mr={3}

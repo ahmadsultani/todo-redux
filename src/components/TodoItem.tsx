@@ -8,10 +8,20 @@ import { HStack, IconButton, Flex, Text, useDisclosure } from '@chakra-ui/react'
 import { DeleteIcon } from '@chakra-ui/icons';
 import { FaEdit, FaCheck } from 'react-icons/fa';
 
-export default function TodoItem({index} : any){
+import { TodoFields } from '../features/todoSlice';
+
+interface TodoItemProps {
+  index: number;
+}
+
+interface TodoState {
+  todos: TodoFields[];
+}
+
+export default function TodoItem({ index } : TodoItemProps){
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const todo = useSelector((state : any) => state.todos[index])
+  const todo = useSelector((state : TodoState) => state.todos[index])
   const dispatch = useDispatch();
 
   function handleCompleted() {
@@ -44,8 +54,8 @@ export default function TodoItem({index} : any){
         <IconButton
           aria-label='todo completed'
           colorScheme='purple'
-          variant={todo.completed? "solid" : "outline"}
-          icon={todo.completed && <FaCheck />}
+          variant={todo.completed ? "solid" : "outline"}
+          icon={todo.completed ? <FaCheck />: undefined}
           isRound={true}
           onClick={handleCompleted}
         />
